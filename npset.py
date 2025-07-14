@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class NPSet:
+class npset:
     def __init__(
         self,
         capacity,
@@ -49,7 +49,7 @@ class NPSet:
         return self.contains(values).all()
 
     def is_compatible(self, other):
-        if not isinstance(other, NPSet): return False
+        if not isinstance(other, npset): return False
         if self._values.dtype != other._values.dtype: return False
         if self._indices.dtype != other._indices.dtype: return False
         if self.capacity != other.capacity: return False
@@ -115,8 +115,8 @@ class NPSet:
         return value
 
     def _deduplicate(self, values, deduplicate=True):
-        # TODO implement update functions optimized for NPSet
-        if isinstance(values, NPSet):
+        # TODO implement update functions optimized for npset
+        if isinstance(values, npset):
             assert self.is_compatible(values)
             return values.values()
 
@@ -229,7 +229,7 @@ class NPSet:
     __ixor__ = symmetric_difference_update
 
     def copy(self):
-        new_set = NPSet(
+        new_set = npset(
             capacity=self.capacity,
             dtype=self._values.dtype,
             indices_dtype=self._indices.dtype)

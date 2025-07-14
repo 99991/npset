@@ -1,4 +1,4 @@
-from npset import NPSet
+from npset import npset
 import numpy as np
 
 def test_random_single():
@@ -6,7 +6,7 @@ def test_random_single():
     np.random.seed(0)
 
     m = 10
-    s = NPSet(m)
+    s = npset(m)
     s_expected = set()
 
     for _ in range(1000):
@@ -41,7 +41,7 @@ def test_random_single():
 def test_random_inplace():
     # Test inplace operations
     m = 10
-    s = NPSet(m)
+    s = npset(m)
     s_expected = set()
 
     for _ in range(1000):
@@ -49,7 +49,7 @@ def test_random_inplace():
         values = np.random.randint(m, size=count)
 
         if np.random.randint(2):
-            values = NPSet(m, values)
+            values = npset(m, values)
 
         which = np.random.randint(4)
 
@@ -75,8 +75,8 @@ def test_large():
     a = np.random.randint(m, size=n)
     b = np.random.randint(m, size=n)
 
-    s = NPSet(m, a)
-    t = NPSet(m, b)
+    s = npset(m, a)
+    t = npset(m, b)
 
     assert np.allclose(np.sort((s & t).values()), np.intersect1d(a, b))
     assert np.allclose(np.sort((s | t).values()), np.union1d(a, b))
@@ -85,8 +85,8 @@ def test_large():
 
 def test_misc():
     m = 10
-    a = NPSet(m, [0, 1, 2, 3])
-    b = NPSet(m, [2, 3, 4, 5])
+    a = npset(m, [0, 1, 2, 3])
+    b = npset(m, [2, 3, 4, 5])
 
     assert str(b) == "{2, 3, 4, 5}"
     assert a.is_compatible(b)

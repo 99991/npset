@@ -6,13 +6,13 @@ functions.
 # Example
 
 ```python
-from npset import NPSet
+from npset import npset
 import numpy as np
 
 # All values added to the set must be non-negative and smaller than `limit`.
 limit = 1000000
 
-s = NPSet(limit)
+s = npset(limit)
 
 # Add one million random values
 s |= np.random.randint(limit, size=1000000)
@@ -23,8 +23,8 @@ s -= np.random.randint(limit, size=1000000)
 # As you might have noticed, this went very fast. Much faster than set()
 
 # Another example with smaller values:
-s = NPSet(limit, [1, 2, 3, 4])
-t = NPSet(limit, [3, 4, 5, 6])
+s = npset(limit, [1, 2, 3, 4])
+t = npset(limit, [3, 4, 5, 6])
 
 # {1, 2, 5, 6}
 print(s ^ t)
@@ -43,4 +43,5 @@ print(t)
 # [True, True, False] (we just removed 6 with .pop())
 
 print(t.contains([4, 5, 6]))
+
 ```
