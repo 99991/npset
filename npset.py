@@ -114,7 +114,7 @@ class NPSet:
 
         return value
 
-    def deduplicate(self, values, deduplicate=True):
+    def _deduplicate(self, values, deduplicate=True):
         # TODO implement update functions optimized for NPSet
         if isinstance(values, NPSet):
             assert self.is_compatible(values)
@@ -128,7 +128,7 @@ class NPSet:
         return values
 
     def update(self, values, deduplicate=True):
-        values = self.deduplicate(values, deduplicate)
+        values = self._deduplicate(values, deduplicate)
 
         indices = self._indices[values]
 
@@ -142,7 +142,7 @@ class NPSet:
         return self
 
     def difference_update(self, values, deduplicate=True):
-        values = self.deduplicate(values, deduplicate)
+        values = self._deduplicate(values, deduplicate)
 
         indices = self._indices[values]
 
@@ -194,7 +194,7 @@ class NPSet:
         return self
 
     def intersection_update(self, values, deduplicate=True):
-        values = self.deduplicate(values, deduplicate)
+        values = self._deduplicate(values, deduplicate)
 
         # Remove values that are not in the set
         indices = self._indices[values]
@@ -213,7 +213,7 @@ class NPSet:
         return self
 
     def symmetric_difference_update(self, values, deduplicate=True):
-        values = self.deduplicate(values, deduplicate)
+        values = self._deduplicate(values, deduplicate)
 
         common_values = values[self._indices[values] != -1]
 
@@ -223,21 +223,10 @@ class NPSet:
 
         return self
 
-    def __ior__(self, other):
-        assert self.is_compatible(other)
-        return self.update(other)
-
-    def __isub__(self, other):
-        assert self.is_compatible(other)
-        return self.difference_update(other)
-
-    def __iand__(self, other):
-        assert self.is_compatible(other)
-        return self.intersection_update(other)
-
-    def __ixor__(self, other):
-        assert self.is_compatible(other)
-        return self.symmetric_difference_update(other)
+    __ior__ = update
+    __isub__ = difference_update
+    __iand__ = intersection_update
+    __ixor__ = symmetric_difference_update
 
     def copy(self):
         new_set = NPSet(
