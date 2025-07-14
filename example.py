@@ -1,11 +1,3 @@
-# npset
-Vectorized NumPy implementation of a sparse set data structure.
-Supports most operations that `set()` supports, in addition to vectorized update
-functions.
-
-# Example
-
-```python
 from npset import NPSet
 import numpy as np
 
@@ -43,4 +35,3 @@ print(t)
 # [True, True, False] (we just removed 6 with .pop())
 
 print(t.contains([4, 5, 6]))
-```
