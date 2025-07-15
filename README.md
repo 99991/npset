@@ -51,15 +51,15 @@ print(t.contains([4, 5, 6]))
 <table>
     <tr>
         <td>
-            <img width="640" height="480" alt="benchmark" src="https://github.com/user-attachments/assets/d66049fb-df7f-4a43-8fe3-6a254f8481d5" />
+            <img width="1280" height="960" alt="cumulative_time" src="https://github.com/user-attachments/assets/15cead4e-a855-44ab-93e4-ee1b5ff085aa" />
         </td>
         <td>
-            <img width="640" height="480" alt="benchmark" src="https://github.com/user-attachments/assets/73360d7a-bdad-4d96-ad70-24200798d4b0" />
+            <img width="1280" height="960" alt="time" src="https://github.com/user-attachments/assets/89a3dbee-d579-49d4-a1b4-1a1b3cd57c1d" />
         </td>
     </tr>
 </table>
 
-When values are repeatedly added to a set with [`numpy.union1d`](https://numpy.org/doc/2.1/reference/generated/numpy.union1d.html), the computational complexity will be quadratic, because a new array is created every time. The following code adds 1000 chunks with 1000 random values each to a set and takes about 6 seconds.
+When values are repeatedly added to a set with [`numpy.union1d`](https://numpy.org/doc/2.1/reference/generated/numpy.union1d.html), the computational complexity will be quadratic, because a new array is created every time. The following code adds 1000 chunks with 1000 random values each to a set and takes about 5 seconds.
 
 ```python
 import numpy as np
@@ -71,7 +71,7 @@ for _ in range(1000):
     values = np.union1d(values, new_values)
 ```
 
-In contrast, `npset` does not have that flaw. Adding (or removing) $k$ values will have a computational complexity of $O(k)$, no matter how large the set is already. The same code with `npset` takes about 0.1 seconds, or 35 milliseconds if excluding `np.random.randint`.
+In contrast, `npset` does not have that flaw. Adding (or removing) $k$ values has a computational complexity of $O(k)$, regardless of the size of the set. The same code with `npset` takes about 50 milliseconds.
 
 ```python
 import numpy as np
